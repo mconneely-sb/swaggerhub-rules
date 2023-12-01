@@ -1,0 +1,25 @@
+extends: ["spectral:oas"]
+rules:
+
+  # ---------------------------------------------------------------------------
+  # General OAS rules
+  # ---------------------------------------------------------------------------
+
+  operation-operationId: false
+  operation-tags: false
+  operation-2xx-response: error
+  
+  aws-openapi-version:
+    description: OpenAPI version must be 3.0.1.  This is the version set when the API is exported from the REST interface.
+    message: Ensure there is a format field for a string type
+    formats:
+      - oas2
+      - oas3_0
+      - oas3_1
+    severity: error
+    given: $.
+    then:
+      function: pattern
+      field: openapi 
+      functionOptions:
+        match: "^3.0.1"
